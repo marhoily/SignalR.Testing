@@ -20,9 +20,6 @@ namespace SignalR.Tests.Common
             host.TransportFactory = () => (IClientTransport) new AutoTransport(mh);
             host.Transport = host.TransportFactory();
 
-            //    var writer = CreateClientTraceWriter(testName);
-            //  host.ClientTraceOutput = writer;
-
             host.Disposables.Add(new DisposableAction(() =>
             {
                 traceListener.Close();
