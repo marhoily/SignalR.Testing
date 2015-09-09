@@ -12,8 +12,7 @@ namespace SignalR.Tests.Common
 {
     public class MemoryTestHost : ITestHost
     {
-        #region MyRegion
-                private static readonly string[] TraceSources =
+        private static readonly string[] TraceSources =
         {
             "SignalR.Transports.WebSocketTransport",
             "SignalR.Transports.ServerSentEventsTransport",
@@ -22,34 +21,22 @@ namespace SignalR.Tests.Common
             "SignalR.Transports.TransportHeartBeat"
         };
 
+        private readonly MemoryHost _host;
         private readonly TextWriterTraceListener _listener;
         private ITraceManager _traceManager;
 
-        protected MemoryTestHost(string logPath)
-        {
-            _listener = new TextWriterTraceListener(logPath + ".transports.log");
-            Disposables = new List<IDisposable>();
-            ExtraData = new Dictionary<string, string>();
-        }
-
-        public IClientTransport Transport { get; set; }
-
-        public IList<IDisposable> Disposables { get; private set; }
-
-        public IDictionary<string, string> ExtraData { get; private set; }
-
-        public Func<IClientTransport> TransportFactory { get; set; }
-
-        private IDependencyResolver Resolver { get; set; }
-
-        #endregion
-        private readonly MemoryHost _host;
-
         public MemoryTestHost(MemoryHost host)
-            : this("")
+
         {
+            _listener = new TextWriterTraceListener(".transports.log");
+            Disposables = new List<IDisposable>();
             _host = host;
         }
+
+        public IList<IDisposable> Disposables { get; private set; }
+        public Func<IClientTransport> TransportFactory { get; set; }
+        private IDependencyResolver Resolver { get; set; }
+        public IClientTransport Transport { get; set; }
 
         public string Url
         {
