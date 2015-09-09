@@ -18,7 +18,6 @@ namespace SignalR.Tests.Common
         }
 
         public IList<IDisposable> Disposables { get; private set; }
-        public Func<IClientTransport> TransportFactory { get; set; }
         public IClientTransport Transport { get; set; }
 
         public string Url

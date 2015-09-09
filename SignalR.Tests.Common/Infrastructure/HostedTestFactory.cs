@@ -12,9 +12,10 @@ namespace SignalR.Tests.Common
         public static ITestHost CreateHost()
         {
             var mh = new MemoryHost();
-            var host = new MemoryTestHost(mh);
-            host.TransportFactory = () => (IClientTransport) new AutoTransport(mh);
-            host.Transport = host.TransportFactory();
+            var host = new MemoryTestHost(mh)
+            {
+                Transport = new AutoTransport(mh)
+            };
 
             EventHandler<UnobservedTaskExceptionEventArgs> handler = (sender, args) =>
             {
