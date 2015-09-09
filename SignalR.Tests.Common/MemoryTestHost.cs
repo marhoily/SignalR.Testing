@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client.Transports;
+using Microsoft.Owin.Testing;
 using Owin;
 
 namespace SignalR.Tests.Common
@@ -13,10 +14,12 @@ namespace SignalR.Tests.Common
         {
             _host = new MemoryHost();
 
-            _host.Configure(app =>
+            Action<IAppBuilder> startup = app =>
             {
                 app.MapSignalR(new HubConfiguration());
-            });
+            };
+            _host.Configure(TestServer.Create(startup));
+            _host.Initialize(null);
             Transport = new AutoTransport(_host);
         }
 

@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MemoryHost.cs" />
-    <Compile Include="MemoryHostHttpHandler.cs" />
     <Compile Include="MemoryTestHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

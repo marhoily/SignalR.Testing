@@ -2,7 +2,6 @@
 using System.Net.Http;
 using Microsoft.AspNet.SignalR.Client.Http;
 using Microsoft.Owin.Testing;
-using Owin;
 
 namespace SignalR.Tests.Common
 {
@@ -15,10 +14,9 @@ namespace SignalR.Tests.Common
             _host.Dispose();
         }
 
-        public void Configure(Action<IAppBuilder> startup)
+        public void Configure(TestServer testServer)
         {
-            _host = TestServer.Create(startup);
-            Initialize(null);
+            _host = testServer;
         }
 
         protected override HttpMessageHandler CreateHandler()
