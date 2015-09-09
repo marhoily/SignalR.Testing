@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SignalR.Tests</id>
+    <version>$version$</version>
+    <authors>Ilya Margolin</authors>
+    <projectUrl>https://github.com/marhoily/SignalR.Tests</projectUrl>
+    <!--<iconUrl>https://raw.githubusercontent.com/marhoily/SignalR.Tests/master/NugetIcon.png</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>In-memory testing the full SignalR pipline</description>
+    <summary>Enables in-memory testing SignalR hubs and proxies end-to-end
+      in the same way Microsoft.Owin.Testing package enables testing the WebApi</summary>
+    <tags>SignalR test testing in-memory</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\SignalR.Tests.Common.dll" target="lib\net45\SignalR.Tests.Common.dll" />
+    <file src="bin\Release\SignalR.Tests.Common.XML" target="lib\net45\SignalR.Tests.Common.XML" />
+  </files>
+</package>
