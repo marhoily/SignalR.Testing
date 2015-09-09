@@ -15,6 +15,19 @@ namespace SignalR.Tests.Common
         {
             Disposables = new List<IDisposable>();
             _host = host;
+
+            var resolver = new DefaultDependencyResolver();
+
+            var bus = new FakeScaleoutBus(resolver);
+            resolver.Register(typeof (IMessageBus), () => bus);
+
+            _host.Configure(app =>
+            {
+                app.MapSignalR(new HubConfiguration
+                {
+                    EnableDetailedErrors = true
+                });
+            });
         }
 
         public IList<IDisposable> Disposables { get; private set; }
@@ -33,22 +46,6 @@ namespace SignalR.Tests.Common
             {
                 d.Dispose();
             }
-        }
-
-        public void Initialize()
-        {
-            var resolver = new DefaultDependencyResolver();
-
-            var bus = new FakeScaleoutBus(resolver);
-            resolver.Register(typeof (IMessageBus), () => bus);
-
-            _host.Configure(app =>
-            {
-                app.MapSignalR(new HubConfiguration
-                {
-                    EnableDetailedErrors = true
-                });
-            });
         }
     }
 }
