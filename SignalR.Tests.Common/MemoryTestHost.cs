@@ -14,8 +14,7 @@ namespace SignalR.Tests.Common
         {
             _host = TestServer.Create(
                 app => { app.MapSignalR(new HubConfiguration()); });
-            var host = new MemoryHost(_host);
-            Transport = new AutoTransport(host);
+            Transport = new AutoTransport(new MemoryHost(_host));
         }
 
         public IClientTransport Transport { get; private set; }
