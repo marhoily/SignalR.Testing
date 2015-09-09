@@ -14,11 +14,10 @@ namespace SignalR.Tests.Common
         {
             _host = new MemoryHost();
 
-            Action<IAppBuilder> startup = app =>
+            _host.Configure(TestServer.Create(app =>
             {
                 app.MapSignalR(new HubConfiguration());
-            };
-            _host.Configure(TestServer.Create(startup));
+            }));
             _host.Initialize(null);
             Transport = new AutoTransport(_host);
         }
