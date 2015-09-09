@@ -13,18 +13,13 @@ namespace SignalR.Tests.Common
         public static ITestHost CreateHost(string testName)
         {
             var logBasePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
-            TraceListener traceListener = EnableTracing(testName, logBasePath);
 
             var mh = new MemoryHost();
             var host = new MemoryTestHost(mh, Path.Combine(logBasePath, testName));
             host.TransportFactory = () => (IClientTransport) new AutoTransport(mh);
             host.Transport = host.TransportFactory();
 
-            host.Disposables.Add(new DisposableAction(() =>
-            {
-                traceListener.Close();
-                Trace.Listeners.Remove(traceListener);
-            }));
+         
 
             EventHandler<UnobservedTaskExceptionEventArgs> handler = (sender, args) =>
             {
@@ -39,13 +34,5 @@ namespace SignalR.Tests.Common
             return host;
         }
 
-        public static TextWriterTraceListener EnableTracing(string testName, string logBasePath)
-        {
-            var testTracePath = Path.Combine(logBasePath, testName + ".test.trace.log");
-            var traceListener = new TextWriterTraceListener(testTracePath);
-            Trace.Listeners.Add(traceListener);
-            Trace.AutoFlush = true;
-            return traceListener;
-        }
     }
 }

@@ -83,16 +83,6 @@ namespace SignalR.Tests.Common
 
             configuration.MaxIncomingWebSocketMessageSize = maxIncomingWebSocketMessageSize;
 
-            if (!keepAlive.HasValue)
-            {
-                configuration.KeepAlive = null;
-            }
-            // Set only if the keep-alive was changed from the default value.
-            else if (keepAlive.Value != -1)
-            {
-                configuration.KeepAlive = TimeSpan.FromSeconds(keepAlive.Value);
-            }
-
             var bus = new FakeScaleoutBus(Resolver);
             Resolver.Register(typeof (IMessageBus), () => bus);
         }

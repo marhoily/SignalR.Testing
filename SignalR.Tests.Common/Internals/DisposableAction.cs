@@ -8,10 +8,6 @@ namespace SignalR.Tests.Common
 {
     public class DisposableAction : IDisposable
     {
-        [SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields",
-            Justification = "The client projects use this.")] public static readonly DisposableAction Empty =
-                new DisposableAction(() => { });
-
         private readonly object _state;
 
         private Action<object> _action;
