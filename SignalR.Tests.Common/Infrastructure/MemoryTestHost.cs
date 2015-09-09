@@ -11,10 +11,9 @@ namespace SignalR.Tests.Common
     {
         private readonly MemoryHost _host;
 
-        public MemoryTestHost(MemoryHost host)
+        public MemoryTestHost()
         {
-            Disposables = new List<IDisposable>();
-            _host = host;
+            _host = new MemoryHost();
 
             var resolver = new DefaultDependencyResolver();
 
@@ -28,9 +27,9 @@ namespace SignalR.Tests.Common
                     EnableDetailedErrors = true
                 });
             });
+            Transport = new AutoTransport(_host);
         }
 
-        public IList<IDisposable> Disposables { get; private set; }
         public IClientTransport Transport { get; set; }
 
         public string Url
@@ -42,10 +41,6 @@ namespace SignalR.Tests.Common
         {
             _host.Dispose();
 
-            foreach (var d in Disposables)
-            {
-                d.Dispose();
-            }
         }
     }
 }
