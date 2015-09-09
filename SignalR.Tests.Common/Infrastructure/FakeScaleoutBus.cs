@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Messaging;
 
-namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+namespace SignalR.Tests.Common
 {
     public class FakeScaleoutBus : ScaleoutMessageBus
     {

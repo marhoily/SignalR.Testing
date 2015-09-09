@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client.Transports;
 
-namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+namespace SignalR.Tests.Common
 {
     public interface ITestHost : IDisposable
     {

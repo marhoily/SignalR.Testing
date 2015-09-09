@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Hosting.Memory;
 
-namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+namespace SignalR.Tests.Common
 {
     public class MemoryTestHost : TracingTestHost
     {

@@ -8,43 +8,41 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Http;
 using Microsoft.AspNet.SignalR.Client.Transports;
 using Microsoft.AspNet.SignalR.Messaging;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+namespace SignalR.Tests.Common
 {
-    public abstract class HostedTest : IDisposable
+    public static class HostedTest 
     {
         private static long _id;
 
-        public virtual void Dispose()
-        {
-            Dispose(true);
-        }
-
-        protected ITestHost CreateHost()
+        public static ITestHost CreateHost()
         {
             return CreateHost(TransportType.Auto);
         }
 
-        protected ITestHost CreateHost(TransportType transportType)
+        public static ITestHost CreateHost(TransportType transportType)
         {
             var detailedTestName = GetTestName() + "." + transportType + "." + Interlocked.Increment(ref _id);
 
-            return HostedTestFactory.CreateHost(transportType, detailedTestName);
+            var testHost = HostedTestFactory.CreateHost(transportType, detailedTestName);
+            testHost.Initialize();
+
+            return testHost;
         }
 
-        protected void UseMessageBus(IDependencyResolver resolver)
+        public static void UseMessageBus(IDependencyResolver resolver)
         {
             IMessageBus bus = new FakeScaleoutBus(resolver);
             resolver.Register(typeof (IMessageBus), () => bus);
         }
 
-        protected void SetReconnectDelay(IClientTransport transport, TimeSpan delay)
+        public static void SetReconnectDelay(IClientTransport transport, TimeSpan delay)
         {
             // SUPER ugly, alternative is adding an overload to the create host function, adding a member to the
             // IClientTransport object or using Reflection.  Adding a member to IClientTransport isn't horrible
@@ -63,14 +61,14 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             }
         }
 
-        protected TextWriterTraceListener EnableTracing()
+        public static TextWriterTraceListener EnableTracing()
         {
             var testName = GetTestName() + "." + Interlocked.Increment(ref _id);
             var logBasePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
             return HostedTestFactory.EnableTracing(testName, logBasePath);
         }
 
-        protected HubConnection CreateHubConnection(string url)
+        public static HubConnection CreateHubConnection(string url)
         {
             var testName = GetTestName() + "." + Interlocked.Increment(ref _id);
             var query = new Dictionary<string, string>();
@@ -80,7 +78,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected Connection CreateConnection(string url)
+        public static Connection CreateConnection(string url)
         {
             var testName = GetTestName() + "." + Interlocked.Increment(ref _id);
             var query = new Dictionary<string, string>();
@@ -90,7 +88,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected HubConnection CreateHubConnection(ITestHost host, string path = null, bool useDefaultUrl = true)
+        public static HubConnection CreateHubConnection(ITestHost host, string path = null, bool useDefaultUrl = true)
         {
             var query = new Dictionary<string, string>();
             query["test"] = GetTestName() + "." + Interlocked.Increment(ref _id);
@@ -100,7 +98,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected HubConnection CreateAuthHubConnection(ITestHost host, string user, string password)
+        public static HubConnection CreateAuthHubConnection(ITestHost host, string user, string password)
         {
             var path = "/cookieauth/signalr";
             var useDefaultUrl = false;
@@ -124,7 +122,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected Connection CreateConnection(ITestHost host, string path)
+        public static Connection CreateConnection(ITestHost host, string path)
         {
             var query = new Dictionary<string, string>();
             query["test"] = GetTestName() + "." + Interlocked.Increment(ref _id);
@@ -134,7 +132,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected Connection CreateAuthConnection(ITestHost host, string path, string user, string password)
+        public static Connection CreateAuthConnection(ITestHost host, string path, string user, string password)
         {
             var query = new Dictionary<string, string>();
             query["test"] = GetTestName() + "." + Interlocked.Increment(ref _id);
@@ -157,7 +155,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             return connection;
         }
 
-        protected string GetTestName()
+        public static string GetTestName()
         {
             var stackTrace = new StackTrace();
             return (from f in stackTrace.GetFrames()
@@ -169,7 +167,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
                 select GetName(m)).First();
         }
 
-        protected void SetHostData(ITestHost host, Dictionary<string, string> query)
+        public static void SetHostData(ITestHost host, Dictionary<string, string> query)
         {
             foreach (var item in host.ExtraData)
             {
@@ -177,29 +175,21 @@ namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
             }
         }
 
-        private string GetName(MethodBase m)
+        private static string GetName(MethodBase m)
         {
             return m.DeclaringType.FullName.Substring(m.DeclaringType.Namespace.Length).TrimStart('.', '+') + "." +
                    m.Name;
         }
 
-        protected IClientTransport CreateTransport(TransportType transportType)
+        public static IClientTransport CreateTransport(TransportType transportType)
         {
             return CreateTransport(transportType, new DefaultHttpClient());
         }
 
-        protected IClientTransport CreateTransport(TransportType transportType, IHttpClient client)
+        public static IClientTransport CreateTransport(TransportType transportType, IHttpClient client)
         {
             return HostedTestFactory.CreateTransport(transportType, client);
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }
-        }
     }
 }

@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.AspNet.SignalR.Client.Http
+namespace SignalR.Tests.Common
 {
     public class MemoryHostHttpHandler : DelegatingHandler
     {

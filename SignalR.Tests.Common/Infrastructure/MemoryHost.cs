@@ -4,7 +4,7 @@ using Microsoft.AspNet.SignalR.Client.Http;
 using Microsoft.Owin.Testing;
 using Owin;
 
-namespace Microsoft.AspNet.SignalR.Hosting.Memory
+namespace SignalR.Tests.Common
 {
     public class MemoryHost : DefaultHttpClient, IDisposable
     {

@@ -2,10 +2,11 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+
 #if !SERVER
 #endif
 
-namespace Microsoft.AspNet.SignalR
+namespace SignalR.Tests.Common
 {
     public static class TaskAsyncHelper
     {

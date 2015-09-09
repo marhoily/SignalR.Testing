@@ -6,10 +6,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client.Http;
 using Microsoft.AspNet.SignalR.Client.Transports;
-using Microsoft.AspNet.SignalR.Hosting.Memory;
-using Microsoft.AspNet.SignalR.Infrastructure;
 
-namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+namespace SignalR.Tests.Common
 {
     public static class HostedTestFactory
     {

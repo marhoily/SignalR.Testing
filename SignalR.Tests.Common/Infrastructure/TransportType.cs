@@ -1,4 +1,4 @@
-﻿namespace Microsoft.AspNet.SignalR.Tests.Common.Infrastructure
+﻿namespace SignalR.Tests.Common
 {
     public enum TransportType
     {

@@ -1,12 +1,7 @@
-using System.Web;
-using Microsoft.AspNet.SignalR.Tests.Common;
-using Microsoft.Owin;
+using Microsoft.AspNet.SignalR;
 using Owin;
 
-[assembly: PreApplicationStartMethod(typeof (Initializer), "Start")]
-[assembly: OwinStartup(typeof (Initializer))]
-
-namespace Microsoft.AspNet.SignalR.Tests.Common
+namespace SignalR.Tests.Common
 {
     public static class Initializer
     {
@@ -20,10 +15,6 @@ namespace Microsoft.AspNet.SignalR.Tests.Common
 
             app.MapSignalR(hubConfig);
 
-            // IMPORTANT: This needs to run last so that it runs in the "default" part of the pipeline
-
-            // Session is enabled for ASP.NET on the session path
-            app.Map("/session", map => { map.MapSignalR(); });
         }
     }
 }

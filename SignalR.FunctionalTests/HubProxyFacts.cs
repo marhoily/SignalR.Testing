@@ -1,42 +1,25 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Tests.Common;
-using Microsoft.AspNet.SignalR.Tests.Common.Infrastructure;
+using SignalR.Tests.Common;
 using Xunit;
 
-namespace Microsoft.AspNet.SignalR.Tests
+namespace SignalR.FunctionalTests
 {
-    public class HubProxyFacts : HostedTest
+    public class HubProxyFacts 
     {
-        [Theory]
-        [InlineData(TransportType.ServerSentEvents)]
-        public async Task EndToEndTest(TransportType transportType)
+        [Fact]
+        public async Task EndToEndTest()
         {
-            using (var host = CreateHost(transportType))
+            using (var host = HostedTest.CreateHost())
+            using (var hubConnection = HostedTest.CreateHubConnection(host))
             {
-                host.Initialize();
-
-                var hubConnection = CreateHubConnection(host);
                 var proxy = hubConnection.CreateHubProxy("ChatHub");
+                proxy.On("addMessage", data => { Assert.Equal("hello", data); });
 
-                using (hubConnection)
-                {
-                    var wh = new ManualResetEvent(false);
+                await hubConnection.Start(host.Transport);
 
-                    proxy.On("addMessage", data =>
-                    {
-                        Assert.Equal("hello", data);
-                        wh.Set();
-                    });
-
-                    await hubConnection.Start(host.Transport);
-
-                    proxy.InvokeWithTimeout("Send", "hello");
-
-                    Assert.True(wh.WaitOne(TimeSpan.FromSeconds(10)));
-                }
+                await proxy.Invoke("Send", "hello");
             }
         }
 
