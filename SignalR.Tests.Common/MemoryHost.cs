@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Net.Http;
 using Microsoft.AspNet.SignalR.Client.Http;
-using Microsoft.Owin.Testing;
 
 namespace SignalR.Tests.Common
 {
     public class MemoryHost : DefaultHttpClient
     {
-        private readonly TestServer _host;
-     
-        public MemoryHost(TestServer host)
+        private readonly HttpMessageHandler _httpMessageHandler;
+
+        public MemoryHost(HttpMessageHandler httpMessageHandler)
         {
-            _host = host;
+            _httpMessageHandler = httpMessageHandler;
             Initialize(null);
         }
 
         protected override HttpMessageHandler CreateHandler()
         {
-            return new MemoryHostHttpHandler(_host.Handler);
+            return new MemoryHostHttpHandler(_httpMessageHandler);
         }
 
         private class MemoryHostHttpHandler : DelegatingHandler
