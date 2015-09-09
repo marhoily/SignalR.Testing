@@ -25,5 +25,13 @@ namespace SignalR.Tests.Common
         {
             return new MemoryHostHttpHandler(_host.Handler);
         }
+
+        private class MemoryHostHttpHandler : DelegatingHandler
+        {
+            public MemoryHostHttpHandler(HttpMessageHandler handler)
+            {
+                InnerHandler = handler;
+            }
+        }
     }
 }
