@@ -11,23 +11,12 @@ namespace SignalR.Tests.Common
     {
         public static ITestHost CreateHost()
         {
-            var mh = new MemoryHost();
-            var host = new MemoryTestHost(mh)
+            var memoryHost = new MemoryHost();
+
+            return new MemoryTestHost(memoryHost)
             {
-                Transport = new AutoTransport(mh)
+                Transport = new AutoTransport(memoryHost)
             };
-
-            EventHandler<UnobservedTaskExceptionEventArgs> handler = (sender, args) =>
-            {
-                Trace.TraceError("Unobserved task exception: " + args.Exception.GetBaseException());
-
-                args.SetObserved();
-            };
-
-            TaskScheduler.UnobservedTaskException += handler;
-            host.Disposables.Add(new DisposableAction(() => { TaskScheduler.UnobservedTaskException -= handler; }));
-
-            return host;
         }
 
     }
