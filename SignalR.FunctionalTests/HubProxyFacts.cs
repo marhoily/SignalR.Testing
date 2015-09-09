@@ -23,7 +23,6 @@ namespace SignalR.FunctionalTests
             }
         }
 
-
         public class ChatHub : Hub
         {
             public Task Send(string message)

@@ -16,8 +16,6 @@ namespace SignalR.Tests.Common
             host.TransportFactory = () => (IClientTransport) new AutoTransport(mh);
             host.Transport = host.TransportFactory();
 
-         
-
             EventHandler<UnobservedTaskExceptionEventArgs> handler = (sender, args) =>
             {
                 Trace.TraceError("Unobserved task exception: " + args.Exception.GetBaseException());
