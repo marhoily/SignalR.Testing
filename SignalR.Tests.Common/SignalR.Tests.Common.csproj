@@ -96,7 +96,6 @@
     <Compile Include="Infrastructure\MemoryHost.cs" />
     <Compile Include="Infrastructure\MemoryHostHttpHandler.cs" />
     <Compile Include="Infrastructure\MemoryTestHost.cs" />
-    <Compile Include="Infrastructure\TracingTestHost.cs" />
     <Compile Include="Internals\DisposableAction.cs" />
     <Compile Include="Internals\OwinConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
