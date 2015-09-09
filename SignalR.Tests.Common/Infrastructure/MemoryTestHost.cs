@@ -9,8 +9,8 @@ namespace SignalR.Tests.Common
     {
         private readonly MemoryHost _host;
 
-        public MemoryTestHost(MemoryHost host, string logPath)
-            : base(logPath)
+        public MemoryTestHost(MemoryHost host)
+            : base("")
         {
             _host = host;
         }

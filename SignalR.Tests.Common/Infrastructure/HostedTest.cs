@@ -1,22 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using Microsoft.AspNet.SignalR.Client;
-using Xunit;
+﻿using Microsoft.AspNet.SignalR.Client;
 
 namespace SignalR.Tests.Common
 {
     public static class HostedTest 
     {
-
         public static ITestHost CreateHost()
         {
-
-            var testHost = HostedTestFactory.CreateHost("");
+            var testHost = HostedTestFactory.CreateHost();
             testHost.Initialize();
-
             return testHost;
         }
 
@@ -26,6 +17,5 @@ namespace SignalR.Tests.Common
             connection.TraceWriter = host.ClientTraceOutput ?? connection.TraceWriter;
             return connection;
         }
-
     }
 }

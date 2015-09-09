@@ -10,12 +10,10 @@ namespace SignalR.Tests.Common
 {
     public static class HostedTestFactory
     {
-        public static ITestHost CreateHost(string testName)
+        public static ITestHost CreateHost()
         {
-            var logBasePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
-
             var mh = new MemoryHost();
-            var host = new MemoryTestHost(mh, Path.Combine(logBasePath, testName));
+            var host = new MemoryTestHost(mh);
             host.TransportFactory = () => (IClientTransport) new AutoTransport(mh);
             host.Transport = host.TransportFactory();
 
