@@ -98,10 +98,8 @@
     <Compile Include="Infrastructure\MemoryHostHttpHandler.cs" />
     <Compile Include="Infrastructure\MemoryTestHost.cs" />
     <Compile Include="Infrastructure\TracingTestHost.cs" />
-    <Compile Include="Infrastructure\TransportType.cs" />
     <Compile Include="Internals\DisposableAction.cs" />
     <Compile Include="Internals\OwinConstants.cs" />
-    <Compile Include="Internals\TaskAsyncHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

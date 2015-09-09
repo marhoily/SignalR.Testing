@@ -12,11 +12,11 @@ namespace SignalR.Tests.Common
     {
         private static long _id;
 
-        public static ITestHost CreateHost(TransportType transportType = TransportType.Auto)
+        public static ITestHost CreateHost()
         {
-            var detailedTestName = GetTestName() + "." + transportType + "." + Interlocked.Increment(ref _id);
+            var detailedTestName = GetTestName() + "." + Interlocked.Increment(ref _id);
 
-            var testHost = HostedTestFactory.CreateHost(transportType, detailedTestName);
+            var testHost = HostedTestFactory.CreateHost(detailedTestName);
             testHost.Initialize();
 
             return testHost;
