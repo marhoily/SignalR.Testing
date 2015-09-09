@@ -7,7 +7,7 @@ using Owin;
 
 namespace SignalR.Tests.Common
 {
-    public class MemoryTestHost : ITestHost
+    public class MemoryTestHost : IDisposable
     {
         private readonly MemoryHost _host;
 

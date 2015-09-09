@@ -90,11 +90,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\FakeScaleoutBus.cs" />
-    <Compile Include="Infrastructure\ITestHost.cs" />
-    <Compile Include="Infrastructure\MemoryHost.cs" />
-    <Compile Include="Infrastructure\MemoryHostHttpHandler.cs" />
-    <Compile Include="Infrastructure\MemoryTestHost.cs" />
+    <Compile Include="FakeScaleoutBus.cs" />
+    <Compile Include="MemoryHost.cs" />
+    <Compile Include="MemoryHostHttpHandler.cs" />
+    <Compile Include="MemoryTestHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
