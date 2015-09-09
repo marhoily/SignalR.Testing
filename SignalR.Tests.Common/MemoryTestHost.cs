@@ -8,18 +8,14 @@ namespace SignalR.Tests.Common
 {
     public class MemoryTestHost : IDisposable
     {
-        private readonly MemoryHost _host;
+        private readonly TestServer _host;
 
         public MemoryTestHost()
         {
-            _host = new MemoryHost();
-
-            _host.Configure(TestServer.Create(app =>
-            {
-                app.MapSignalR(new HubConfiguration());
-            }));
-            _host.Initialize(null);
-            Transport = new AutoTransport(_host);
+            _host = TestServer.Create(
+                app => { app.MapSignalR(new HubConfiguration()); });
+            var host = new MemoryHost(_host);
+            Transport = new AutoTransport(host);
         }
 
         public IClientTransport Transport { get; private set; }

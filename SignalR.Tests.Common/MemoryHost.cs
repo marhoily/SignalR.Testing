@@ -5,18 +5,14 @@ using Microsoft.Owin.Testing;
 
 namespace SignalR.Tests.Common
 {
-    public class MemoryHost : DefaultHttpClient, IDisposable
+    public class MemoryHost : DefaultHttpClient
     {
-        private TestServer _host;
-
-        public void Dispose()
+        private readonly TestServer _host;
+     
+        public MemoryHost(TestServer host)
         {
-            _host.Dispose();
-        }
-
-        public void Configure(TestServer testServer)
-        {
-            _host = testServer;
+            _host = host;
+            Initialize(null);
         }
 
         protected override HttpMessageHandler CreateHandler()
