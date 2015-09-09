@@ -90,8 +90,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Initializer.cs" />
-    <Compile Include="Infrastructure\ClientAssertExtensions.cs" />
     <Compile Include="Infrastructure\FakeScaleoutBus.cs" />
     <Compile Include="Infrastructure\HostedTest.cs" />
     <Compile Include="Infrastructure\HostedTestFactory.cs" />

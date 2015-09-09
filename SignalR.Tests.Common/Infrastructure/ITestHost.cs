@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace SignalR.Tests.Common
@@ -15,13 +13,7 @@ namespace SignalR.Tests.Common
 
         TextWriter ClientTraceOutput { get; set; }
 
-        IList<IDisposable> Disposables { get; }
-
         IDictionary<string, string> ExtraData { get; }
-
-        Func<IClientTransport> TransportFactory { get; set; }
-
-        IDependencyResolver Resolver { get; set; }
 
         void Initialize(int? keepAlive = -1,
             int? connectionTimeout = 110,
@@ -30,10 +22,5 @@ namespace SignalR.Tests.Common
             int? maxIncomingWebSocketMessageSize = 64*1024, // Default 64 KB
             bool enableAutoRejoiningGroups = false);
 
-        Task Get(string uri);
-
-        Task Post(string uri, IDictionary<string, string> data);
-
-        void Shutdown();
     }
 }

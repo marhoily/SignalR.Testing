@@ -13,13 +13,11 @@ namespace SignalR.Tests.Common
     {
         public static ITestHost CreateHost(TransportType transportType, string testName, string url = null)
         {
-            ITestHost host = null;
-
             var logBasePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
             TraceListener traceListener = EnableTracing(testName, logBasePath);
 
             var mh = new MemoryHost();
-            host = new MemoryTestHost(mh, Path.Combine(logBasePath, testName));
+            var host = new MemoryTestHost(mh, Path.Combine(logBasePath, testName));
             host.TransportFactory = () => CreateTransport(transportType, mh);
             host.Transport = host.TransportFactory();
 
@@ -71,15 +69,6 @@ namespace SignalR.Tests.Common
             Trace.Listeners.Add(traceListener);
             Trace.AutoFlush = true;
             return traceListener;
-        }
-
-        public static StreamWriter CreateClientTraceWriter(string testName)
-        {
-            var logBasePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
-            var clientTracePath = Path.Combine(logBasePath, testName + ".client.trace.log");
-            var writer = new StreamWriter(clientTracePath);
-            writer.AutoFlush = true;
-            return writer;
         }
     }
 }

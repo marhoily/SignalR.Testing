@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Owin;
 
 namespace SignalR.Tests.Common
 {
@@ -32,17 +34,13 @@ namespace SignalR.Tests.Common
                 maxIncomingWebSocketMessageSize,
                 enableAutoRejoiningGroups);
 
-            _host.Configure(app => { Initializer.ConfigureRoutes(app, Resolver); });
-        }
-
-        public override Task Get(string uri)
-        {
-            return _host.Get(uri, r => { }, false);
-        }
-
-        public override Task Post(string uri, IDictionary<string, string> data)
-        {
-            return _host.Post(uri, r => { }, data, false);
+            _host.Configure(app =>
+            {
+                app.MapSignalR(new HubConfiguration
+                {
+                    EnableDetailedErrors = true
+                });
+            });
         }
 
         public override void Dispose()

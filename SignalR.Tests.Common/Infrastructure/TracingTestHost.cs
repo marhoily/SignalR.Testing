@@ -13,7 +13,7 @@ namespace SignalR.Tests.Common
 {
     public abstract class TracingTestHost : ITestHost
     {
-        private static readonly string[] _traceSources =
+        private static readonly string[] TraceSources =
         {
             "SignalR.Transports.WebSocketTransport",
             "SignalR.Transports.ServerSentEventsTransport",
@@ -44,7 +44,7 @@ namespace SignalR.Tests.Common
 
         public Func<IClientTransport> TransportFactory { get; set; }
 
-        public IDependencyResolver Resolver { get; set; }
+        private IDependencyResolver Resolver { get; set; }
 
         public virtual void Initialize(int? keepAlive = -1,
             int? connectionTimeout = 110,
@@ -58,7 +58,7 @@ namespace SignalR.Tests.Common
             _traceManager = Resolver.Resolve<ITraceManager>();
             _traceManager.Switch.Level = SourceLevels.Verbose;
 
-            foreach (var sourceName in _traceSources)
+            foreach (var sourceName in TraceSources)
             {
                 var source = _traceManager[sourceName];
                 source.Listeners.Add(_listener);
@@ -97,26 +97,11 @@ namespace SignalR.Tests.Common
             Resolver.Register(typeof (IMessageBus), () => bus);
         }
 
-        public virtual Task Get(string uri)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Task Post(string uri, IDictionary<string, string> data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Shutdown()
-        {
-            Dispose();
-        }
-
         public virtual void Dispose()
         {
             _listener.Flush();
 
-            foreach (var sourceName in _traceSources)
+            foreach (var sourceName in TraceSources)
             {
                 _traceManager[sourceName].Listeners.Remove(_listener);
             }
