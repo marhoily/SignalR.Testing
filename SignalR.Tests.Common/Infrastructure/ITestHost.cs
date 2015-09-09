@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace SignalR.Tests.Common
@@ -11,9 +9,6 @@ namespace SignalR.Tests.Common
 
         IClientTransport Transport { get; set; }
 
-        TextWriter ClientTraceOutput { get; set; }
-
-        IDictionary<string, string> ExtraData { get; }
 
         void Initialize(int? keepAlive = -1,
             int? connectionTimeout = 110,
