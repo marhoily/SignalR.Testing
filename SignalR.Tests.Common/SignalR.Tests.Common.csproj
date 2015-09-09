@@ -90,7 +90,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeScaleoutBus.cs" />
     <Compile Include="MemoryHost.cs" />
     <Compile Include="MemoryHostHttpHandler.cs" />
     <Compile Include="MemoryTestHost.cs" />

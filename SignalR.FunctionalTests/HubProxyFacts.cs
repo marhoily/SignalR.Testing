@@ -12,7 +12,7 @@ namespace SignalR.FunctionalTests
         public async Task EndToEndTest()
         {
             using (var host = new MemoryTestHost())
-            using (var hubConnection = new HubConnection(host.Url, true))
+            using (var hubConnection = new HubConnection("http://valid.url"))
             {
                 var proxy = hubConnection.CreateHubProxy("ChatHub");
                 proxy.On("addMessage", data => { Assert.Equal("hello", data); });
