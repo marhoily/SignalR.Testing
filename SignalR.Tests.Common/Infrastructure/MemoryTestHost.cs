@@ -35,24 +35,15 @@ namespace SignalR.Tests.Common
 
         public IList<IDisposable> Disposables { get; private set; }
         public Func<IClientTransport> TransportFactory { get; set; }
-        private IDependencyResolver Resolver { get; set; }
         public IClientTransport Transport { get; set; }
 
-        public string Url
-        {
-            get { return "http://memoryhost"; }
-        }
+        public string Url { get { return "http://memoryhost"; } }
 
-        public void Initialize(int? keepAlive = -1,
-            int? connectionTimeout = 110,
-            int? disconnectTimeout = 30,
-            int? transportConnectTimeout = 5,
-            int? maxIncomingWebSocketMessageSize = 64*1024,
-            bool enableAutoRejoiningGroups = false)
+        public void Initialize()
         {
-            Resolver = Resolver ?? new DefaultDependencyResolver();
+            var resolver = new DefaultDependencyResolver();
 
-            _traceManager = Resolver.Resolve<ITraceManager>();
+            _traceManager = resolver.Resolve<ITraceManager>();
             _traceManager.Switch.Level = SourceLevels.Verbose;
 
             foreach (var sourceName in TraceSources)
@@ -61,27 +52,8 @@ namespace SignalR.Tests.Common
                 source.Listeners.Add(_listener);
             }
 
-            var configuration = Resolver.Resolve<IConfigurationManager>();
-
-            if (connectionTimeout != null)
-            {
-                configuration.ConnectionTimeout = TimeSpan.FromSeconds(connectionTimeout.Value);
-            }
-
-            if (disconnectTimeout != null)
-            {
-                configuration.DisconnectTimeout = TimeSpan.FromSeconds(disconnectTimeout.Value);
-            }
-
-            if (transportConnectTimeout != null)
-            {
-                configuration.TransportConnectTimeout = TimeSpan.FromSeconds(transportConnectTimeout.Value);
-            }
-
-            configuration.MaxIncomingWebSocketMessageSize = maxIncomingWebSocketMessageSize;
-
-            var bus = new FakeScaleoutBus(Resolver);
-            Resolver.Register(typeof (IMessageBus), () => bus);
+            var bus = new FakeScaleoutBus(resolver);
+            resolver.Register(typeof (IMessageBus), () => bus);
 
             _host.Configure(app =>
             {
