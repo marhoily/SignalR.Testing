@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Client.Transports;
 using Microsoft.AspNet.SignalR.Configuration;
@@ -35,8 +33,6 @@ namespace SignalR.Tests.Common
         public abstract string Url { get; }
 
         public IClientTransport Transport { get; set; }
-
-        public TextWriter ClientTraceOutput { get; set; }
 
         public IList<IDisposable> Disposables { get; private set; }
 

@@ -28,6 +28,7 @@ namespace SignalR.Tests.Common
 
             TaskScheduler.UnobservedTaskException += handler;
             host.Disposables.Add(new DisposableAction(() => { TaskScheduler.UnobservedTaskException -= handler; }));
+            host.Initialize();
 
             return host;
         }

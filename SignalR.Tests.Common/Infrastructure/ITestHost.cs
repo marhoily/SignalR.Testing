@@ -7,7 +7,7 @@ namespace SignalR.Tests.Common
     {
         string Url { get; }
 
-        IClientTransport Transport { get; set; }
+        IClientTransport Transport { get; }
 
 
         void Initialize(int? keepAlive = -1,
