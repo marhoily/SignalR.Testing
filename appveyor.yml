@@ -17,7 +17,7 @@ cache:
   - packages -> **\packages.config
 
 after_test:
-  - nuget pack SignalR.Tests.Common\SignalR.Tests.Common.nuspec -Version "%APPVEYOR_BUILD_VERSION%"
+  - nuget pack SignalR.Tests.Common\SignalR.Tests.nuspec -Version "%APPVEYOR_BUILD_VERSION%"
 
 artifacts:
   - path: '*.nupkg'
